@@ -1,0 +1,123 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$icons-btn-close-name: 'icons-btn_close';
+$icons-btn-close-x: 43px;
+$icons-btn-close-y: 0px;
+$icons-btn-close-offset-x: -43px;
+$icons-btn-close-offset-y: 0px;
+$icons-btn-close-width: 29px;
+$icons-btn-close-height: 29px;
+$icons-btn-close-total-width: 72px;
+$icons-btn-close-total-height: 71px;
+$icons-btn-close-image: '../images/sprite/icons.png';
+$icons-btn-close: (43px, 0px, -43px, 0px, 29px, 29px, 72px, 71px, '../images/sprite/icons.png', 'icons-btn_close', );
+$icons-btn-more-view-name: 'icons-btn_more_view';
+$icons-btn-more-view-x: 0px;
+$icons-btn-more-view-y: 0px;
+$icons-btn-more-view-offset-x: 0px;
+$icons-btn-more-view-offset-y: 0px;
+$icons-btn-more-view-width: 33px;
+$icons-btn-more-view-height: 33px;
+$icons-btn-more-view-total-width: 72px;
+$icons-btn-more-view-total-height: 71px;
+$icons-btn-more-view-image: '../images/sprite/icons.png';
+$icons-btn-more-view: (0px, 0px, 0px, 0px, 33px, 33px, 72px, 71px, '../images/sprite/icons.png', 'icons-btn_more_view', );
+$icons-ic-fb-name: 'icons-ic_fb';
+$icons-ic-fb-x: 0px;
+$icons-ic-fb-y: 43px;
+$icons-ic-fb-offset-x: 0px;
+$icons-ic-fb-offset-y: -43px;
+$icons-ic-fb-width: 28px;
+$icons-ic-fb-height: 28px;
+$icons-ic-fb-total-width: 72px;
+$icons-ic-fb-total-height: 71px;
+$icons-ic-fb-image: '../images/sprite/icons.png';
+$icons-ic-fb: (0px, 43px, 0px, -43px, 28px, 28px, 72px, 71px, '../images/sprite/icons.png', 'icons-ic_fb', );
+$icons-ic-nb-name: 'icons-ic_nb';
+$icons-ic-nb-x: 38px;
+$icons-ic-nb-y: 43px;
+$icons-ic-nb-offset-x: -38px;
+$icons-ic-nb-offset-y: -43px;
+$icons-ic-nb-width: 28px;
+$icons-ic-nb-height: 28px;
+$icons-ic-nb-total-width: 72px;
+$icons-ic-nb-total-height: 71px;
+$icons-ic-nb-image: '../images/sprite/icons.png';
+$icons-ic-nb: (38px, 43px, -38px, -43px, 28px, 28px, 72px, 71px, '../images/sprite/icons.png', 'icons-ic_nb', );
+$icons-width: 72px;
+$icons-height: 71px;
+$icons-image: '../images/sprite/icons.png';
+$icons-sprites: ($icons-btn-close, $icons-btn-more-view, $icons-ic-fb, $icons-ic-nb, );
+$icons: (72px, 71px, '../images/sprite/icons.png', $icons-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
