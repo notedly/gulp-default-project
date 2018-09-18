@@ -132,7 +132,7 @@ gulp.task('copyImages', () => {
 }) ;
 
 function webpackFun ( evt ) {
-	console.log( '---- evt : ' , evt ) ;
+	// console.log( '---- evt : ' , evt ) ;
 	let path = evt.path ;
 	let jsName = path.substr( path.lastIndexOf( '\\' ) + 1 , path.length ) ;
 	let entryName = {} ;
@@ -214,7 +214,7 @@ function webpackFun ( evt ) {
 }
 
 gulp.task('webpack', () => {
-	console.log( '------------> webpack js in' ) ;
+	console.log( '## webpack START ##' ) ;
 	fs.readdir( `${ DIR.SRC }/js/` , ( err , files ) => {
       // console.log( 'err : ' , err ) ;
       // console.log( 'files : ' , files ) ;
@@ -268,6 +268,6 @@ gulp.task('watch', () => {
 });
 
 // # default
-gulp.task('default', [ 'clean', 'copyImages', 'scss',  'html', 'watch', 'start', 'browser-sync' ],() => {
+gulp.task('default', [ 'clean', 'copyImages', 'scss', 'webpack', 'html', 'watch', 'start', 'browser-sync' ],() => {
 	return gutil.log( '-------> Gulp is running' ) ;
 })

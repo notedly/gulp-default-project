@@ -1,3 +1,1 @@
-console.log( 'sub in !!! !!! ' ) ;
-
-console.log( 'sub도 돌아간다~~~~~~~~~~~~~~~' ) ;
+console.log( 'sub.js in' ) ;
