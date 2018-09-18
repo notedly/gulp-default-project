@@ -18,15 +18,11 @@ images > sprite 폴더에 카테고리별로 폴더 생성
 
 #### scss 사용 방법
 
-생성된 스프라이트 scss 파일을 사용할 파일의 상단에 import 되있어야 합니다.
 
 `
 
+// 생성된 스프라이트 scss 파일을 사용할 파일의 상단에 import 되있어야 합니다.
 @import "./sprite/_default-sprite";
-
-`
-
-`
 
 // 레티나 이미지 사용시 아래 mixin 적용해야합니다.
 @include retina-sprites($retina-groups);
