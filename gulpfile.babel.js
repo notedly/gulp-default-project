@@ -19,6 +19,7 @@ import mergeStream from 'merge-stream';
 import fs from 'fs' ;
 import mustache from 'mustache' ;
 import runSequence from 'run-sequence' ;
+import fileinclude from 'gulp-file-include' ;
 
 let cache = new Cache();
 global.appRoot = __dirname  ;
@@ -31,6 +32,7 @@ const DIR = {
 
 const SRC = {
 	HTML : DIR.SRC + '/*.html',
+	HTMLINCLUDE : DIR.SRC + '/include/*.html',
 	CSS : DIR.SRC + '/css/*.css',
 	SCSS : DIR.SRC + '/scss/*.scss',
 	JS : DIR.SRC + '/js/**/*.js',
@@ -69,6 +71,17 @@ gulp.task('html', () => {
 	console.log( '## html START ##' ) ;
 	return gulp.src( SRC.HTML )
 	.pipe( gulp.dest( DEST.HTML ) ) ;
+}) ;
+
+// html copy & file include
+gulp.task('htmlbuild', () => {
+	console.log( '## htmlbuild START ##' ) ;
+	return gulp.src( SRC.HTML )
+	.pipe( fileinclude({
+		prefix : '@@' ,
+		basepath : '@file'
+	}) )
+	.pipe( gulp.dest( DEST.HTML ) )
 }) ;
 
 // # scss
@@ -237,7 +250,7 @@ gulp.task('browser-sync', () => {
 	console.log( '## browser-sync START ##' ) ;
 	browserSync.init(null, {
 		proxy : "http://localhost:3000",
-		files : ["html_build/**/*.*"],
+		files : ["./html_build"],
 		port : 7000,
 	}) ;
 });
@@ -251,7 +264,8 @@ gulp.task('watch', () => {
 		webpack : gulp.watch(SRC.JS, ['webpack']),
 		css : gulp.watch(SRC.CSS, ['css']),
 		scss : gulp.watch(DIR.SRC + '/**/*.scss', ['scss']),
-		html : gulp.watch(SRC.HTML, ['html']),
+		html : gulp.watch(SRC.HTML, ['htmlbuild']),
+		htmlinclude : gulp.watch(SRC.HTMLINCLUDE, ['htmlbuild']),
 		images : gulp.watch(SRC.IMAGES, ['images']),
 		copyImages : gulp.watch(SRC.SPRITE, ['copyImages']),
 		babel : gulp.watch(SRC.SERVER, ['babel']),
@@ -267,7 +281,18 @@ gulp.task('watch', () => {
 	}
 });
 
+// gulp.task('watch', () => {
+// 	gulp.watch( SRC.JS, ['webpack'] ) ;
+// 	gulp.watch( SRC.CSS, ['css'] ) ;
+// 	gulp.watch( DIR.SRC + '/**/*.scss', ['scss'] ) ;
+// 	gulp.watch( SRC.HTML, ['htmlbuild'] ) ;
+// 	gulp.watch( SRC.HTMLINCLUDE, ['htmlbuild'] ) ;
+// 	gulp.watch( SRC.IMAGES, ['images'] ) ;
+// 	gulp.watch( SRC.SPRITE, ['copyImages'] ) ;
+// 	gulp.watch( SRC.SERVER, ['babel'] ) ;
+// });
+
 // # default
-gulp.task('default', [ 'clean', 'copyImages', 'scss', 'webpack', 'html', 'watch', 'start', 'browser-sync' ],() => {
+gulp.task('default', [ 'clean', 'copyImages', 'scss', 'webpack', 'htmlbuild', 'watch', 'start', 'browser-sync' ],() => {
 	return gutil.log( '-------> Gulp is running' ) ;
 })
