@@ -244,6 +244,13 @@ gulp.task('webpack', () => {
     }) ;
 }) ;
 
+// # JS copy
+gulp.task('js', () => {
+	console.log( '## js COPY START ##' ) ;
+	return gulp.src( SRC.JS )
+	.pipe( gulp.dest( DEST.JS ) ) ;
+}) ;
+
 
 // # browser-sync(자동 새로고침)
 gulp.task('browser-sync', () => {
@@ -261,7 +268,8 @@ gulp.task('watch', () => {
 	console.log( '## watch START ##' ) ;
 
 	let watcher = {
-		webpack : gulp.watch(SRC.JS, ['webpack']),
+		// webpack : gulp.watch(SRC.JS, ['webpack']),
+		js : gulp.watch(SRC.JS, ['js']),
 		css : gulp.watch(SRC.CSS, ['css']),
 		scss : gulp.watch(DIR.SRC + '/**/*.scss', ['scss']),
 		html : gulp.watch(SRC.HTML, ['htmlbuild']),
@@ -293,6 +301,6 @@ gulp.task('watch', () => {
 // });
 
 // # default
-gulp.task('default', [ 'clean', 'copyImages', 'scss', 'webpack', 'htmlbuild', 'watch', 'start', 'browser-sync' ],() => {
+gulp.task('default', [ 'clean', 'copyImages', 'scss', 'js', 'htmlbuild', 'watch', 'start', 'browser-sync' ],() => {
 	return gutil.log( '-------> Gulp is running' ) ;
 })
