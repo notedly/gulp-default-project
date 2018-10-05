@@ -5,5 +5,8 @@ app
 .gulp-cache
 html_build
 js_min
-
-**/html/scss/sprite
+*.sass-cache
+*.css.map
+*.sass.map
+*.scss.map
+html/scss/sprite/
