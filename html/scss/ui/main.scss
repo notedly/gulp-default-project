@@ -1,2 +1,8 @@
 @charset "UTF-8";
 
+.left{
+	@include sprite( $icons-btn_slide_prev );
+}
+.right{
+	@include sprite( $icons-btn_slide_next );
+}
