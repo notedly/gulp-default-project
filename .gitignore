@@ -6,4 +6,4 @@ app
 html_build
 js_min
 
-html/scss/sprite
+**/html/scss/sprite
