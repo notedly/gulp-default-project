@@ -1,8 +1,15 @@
 @charset "UTF-8";
 
+button{
+	text-indent: -9999em;
+	font-size:0;
+}
 .left{
 	@include sprite( $icons-btn_slide_prev );
 }
 .right{
 	@include sprite( $icons-btn_slide_next );
+}
+.right2{
+	@include sprite( $icons-arr_delivery_btn_info );
 }
