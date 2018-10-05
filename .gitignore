@@ -5,3 +5,5 @@ app
 .gulp-cache
 html_build
 js_min
+
+html/scss/sprite
