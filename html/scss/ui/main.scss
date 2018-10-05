@@ -6,3 +6,6 @@
 .right{
 	@include sprite( $icons-btn_slide_next );
 }
+.down{
+	@include sprite( $icons-arr_delivery_btn_info_highlight );
+}
