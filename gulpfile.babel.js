@@ -20,6 +20,7 @@ import fs from 'fs' ;
 import mustache from 'mustache' ;
 import runSequence from 'run-sequence' ;
 import fileinclude from 'gulp-file-include' ;
+import sourcemaps from 'gulp-sourcemaps';
 
 let cache = new Cache();
 global.appRoot = __dirname  ;
@@ -85,12 +86,21 @@ gulp.task('htmlbuild', () => {
 }) ;
 
 // # scss
+// gulp.task('scss', () => {
+// 	console.log( '## scss START ##' ) ;
+// 	return gulp.src( SRC.SCSS )
+// 	.pipe( cache.filter() )
+// 	.pipe( sass().on('error', sass.logError) )
+// 	.pipe( cache.cache() )
+// 	.pipe( gulp.dest( DEST.CSS ) ) ;
+// }) ;
+
 gulp.task('scss', () => {
 	console.log( '## scss START ##' ) ;
 	return gulp.src( SRC.SCSS )
-	.pipe( cache.filter() )
+	.pipe(sourcemaps.init())
 	.pipe( sass().on('error', sass.logError) )
-	.pipe( cache.cache() )
+	.pipe(sourcemaps.write('./'))
 	.pipe( gulp.dest( DEST.CSS ) ) ;
 }) ;
 
