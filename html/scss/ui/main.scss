@@ -1,1 +1,22 @@
 @charset "UTF-8";
+
+*{
+	box-sizing:border-box;
+}
+
+.lst{
+	overflow:hidden;
+	width:100%;
+	li{
+		float:left;
+		border:1px solid red;
+	}
+
+	$class : len_ ;
+
+	@for $i from 1 through 10 {
+		&.#{$class}#{$i} li{
+			width : 100% / $i;
+		}
+	}
+}
